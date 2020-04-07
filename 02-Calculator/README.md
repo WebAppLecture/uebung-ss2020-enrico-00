@@ -77,6 +77,7 @@ Fügt in `setupNumpad` für jede Taste einen Listener hinzu der bei einem Klick 
     * param2 ist die **Callback** Funktion die ausgeführt werden soll wenn der Listener feuert
 * Fügt in `onButtonClick` einen `console.log()` hinzu der in der Konsole ausgibt welche Taste gedrückt wurde
       
+
 **Callbacks** können als anonyme Funktion oder Referenz definiert werden.
 
 Anonyme Funktionen:
