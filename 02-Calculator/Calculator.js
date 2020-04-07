@@ -11,15 +11,62 @@ export class Calculator {
     }
 
     setupNumPad() { 
-        for(let i = 0; i < this.numpad.children.length; i++)
+        for(let i = 0; i < 7; i=i+3) 
         {
-            let buttonText = this.numpad.children[i];
-            buttonText.addEventListener('click', this.onButtonClick.bind(buttonText));
-        }
+            for(let j = 1; j < 4; j++)
+            {
+                let button = document.createElement("button");
+                button.innerText = j+i;
+                this.numpad.appendChild(button);
+                button.addEventListener('click', this.onButtonClick.bind(this, button));
+            }
+            let jump = document.createElement("br");
+            this.numpad.appendChild(jump);
+        } // array besser
+        let button = document.createElement("button");
+        button.innerText = 0;
+        this.numpad.appendChild(button);
+        button.addEventListener('click', this.onButtonClick.bind(this, button));
+        let jump = document.createElement("br");
+        this.numpad.appendChild(jump);
+
+        button = document.createElement("button");
+        button.innerText = "+";
+        this.numpad.appendChild(button);
+        button.addEventListener('click', this.onButtonClick.bind(this, button));
+        button = document.createElement("button");
+        button.innerText = "-";
+        this.numpad.appendChild(button);
+        button.addEventListener('click', this.onButtonClick.bind(this, button));
+        button = document.createElement("button");
+        button.innerText = "*";
+        this.numpad.appendChild(button);
+        button.addEventListener('click', this.onButtonClick.bind(this, button));
+        button = document.createElement("button");
+        button.innerText = "/";
+        this.numpad.appendChild(button);
+        button.addEventListener('click', this.onButtonClick.bind(this, button));
+        button = document.createElement("button");
+        button.innerText = "^";
+        this.numpad.appendChild(button);
+        button.addEventListener('click', this.onButtonClick.bind(this, button));
+        button = document.createElement("button");
+        button.innerText = "!";
+        this.numpad.appendChild(button);
+        button.addEventListener('click', this.onButtonClick.bind(this, button));
+        button = document.createElement("button");
+        button.innerText = "AC";
+        this.numpad.appendChild(button);
+        button.addEventListener('click', this.onButtonClick.bind(this, button));
     }
 
     onButtonClick(symbol) {
         console.log(symbol.target.innerText);
+    }
+
+    onNumberClick(symbol) 
+    {
+        let number = new MyMath(symbol.target.innerText);
     }
 
     print(string) {
