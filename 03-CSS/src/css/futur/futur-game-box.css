@@ -35,7 +35,7 @@ body {
 
 .accent:before {
     font-size: 10vh;
-    content: "____";
+    content: "___ .";
 }
 
 .screen {

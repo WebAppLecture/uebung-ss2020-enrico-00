@@ -48,7 +48,8 @@
 }
 
 .big-button {   
-    transform: rotate(-20deg);
+    border-radius: 25vh;
+    width: 50px;
 
     box-shadow: 0 0 .6vh 0 var(--shadow),
         .4vh .8vh .5vh .1vh inset var(--button-highlight), 
