@@ -33,7 +33,7 @@ body {
 
 .accent:before {
     font-size: 10vh;
-    content: "||||";
+    content: "|||";
 }
 
 .screen {

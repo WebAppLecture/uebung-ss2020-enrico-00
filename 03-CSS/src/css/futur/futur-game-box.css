@@ -1,11 +1,18 @@
 body {
-    background-color: var(--orange);
+    font-family: 'Keania One', cursive;
+    background-color:#269;
+    background-image: linear-gradient(white 2px, transparent 2px),
+    linear-gradient(90deg, white 2px, transparent 2px),
+    linear-gradient(rgba(255,255,255,.3) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.3) 1px, transparent 1px);
+    background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+    background-position:-2px -2px, -2px -2px, -1px -1px, -1px -1px;
 }
 
 .gameBox {
     border-radius: 4vh;
 
-    background: linear-gradient(to right bottom, var(--orange), var(--purple));
+    background: linear-gradient(to right bottom, var(--shadow), rgb(160, 76, 76));
     box-shadow: -.5vh -.5vh 2vh -.2vh var(--dark-purple) inset,
         .6vh .6vh .7vh .2vh var(--dark-purple),
         0 0 1.5vh -.5vh var(--dark-purple);
@@ -13,8 +20,8 @@ body {
 
 .logo,
 .accent {
-    background-color: var(--purple);
-    background: linear-gradient(to right, var(--purple), var(--dark-purple));
+    background-color: var(--green);
+    background: linear-gradient(to right, var(--green), var(--dark-purple));
 
     color: transparent;
     font-family: monospace;
@@ -28,7 +35,7 @@ body {
 
 .accent:before {
     font-size: 10vh;
-    content: "////";
+    content: "___ .";
 }
 
 .screen {
@@ -48,7 +55,7 @@ body {
 .menu > ul {
     padding-inline-start: 0;
 
-    font-family: monospace;
+    font-family: 'Keania One', cursive;;
     text-transform: uppercase;
     text-align: center;
     font-size: 2vh;
