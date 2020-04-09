@@ -1,7 +1,8 @@
 .gameBox {
     background: radial-gradient(
     circle at 100% 100%, 
-    transparent 16%, 
+    transparent 12%, 
+    black 16%,
     rgb(97, 73, 43) 16.2%, 
     rgb(114, 133, 72) 50%, 
     rgb(97, 73, 43) 100%
