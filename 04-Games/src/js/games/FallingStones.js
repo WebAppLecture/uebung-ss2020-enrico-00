@@ -13,7 +13,7 @@ export class FallingStones extends GameTemplate {
         //this.player = new Ball(200, 450, 50, 50, "#6bd26b", 8, 0);
         this.bullets = [];
         this.stones = [];
-        this.points;
+        this.points = 0;
         this.lives = 5;
         this.spawnIntervalStones = 0;
         this.spawnIntervalBullets = 0;
@@ -36,6 +36,10 @@ export class FallingStones extends GameTemplate {
         ctx.font = "30px Verdana";
         //ctx.fillStyle = "#000000";
         ctx.fillText(this.lives, this.player.x, this.player.y);
+        if(this.lives === 0)
+        {
+            this.gameOver = true;
+        }
     }
 
     draw(ctx) 
@@ -43,6 +47,7 @@ export class FallingStones extends GameTemplate {
         this.player.draw(ctx);
         this.bullets.forEach(bullets => bullets.draw(ctx));
         this.stones.forEach(stones => stones.draw(ctx));
+        this.drawPoints(ctx);
     }
 
     shoot()
@@ -79,7 +84,7 @@ export class FallingStones extends GameTemplate {
                 if(GameObject.rectangleCollision(this.bullets[i], this.stones[j])) {
                     this.bullets.splice(i, 1);
                     this.stones.splice(j, 1);
-                    console.log(this.bullets[i].y+10);
+                    this.points = this.points + 1;
                 }
             }
             /*this.stones.forEach(this.stones => {
@@ -98,17 +103,32 @@ export class FallingStones extends GameTemplate {
             if(this.stones[j].y > 500)
             {
                 this.stones.splice(j, 1);
+                this.lives = this.lives - 1;
             }
         }
-        if(this.spawnIntervalStones > 60)
+        if(this.spawnIntervalStones > 30)
         {
-            this.stones.push(new Ball((Math.random()*300)+25, 0, 50, 100, "#6bd26b", 0, 8));
+            this.stones.push(new Ball((Math.random()*300)+25, 0, 50, 100, "#6bd26b", 0, 6));
             this.spawnIntervalStones = 0;
         }
         else
         {
             this.spawnIntervalStones = this.spawnIntervalStones + 1;
         }
+    }
+
+    drawPoints(ctx) {
+        ctx.fillStyle = "#6bd26b";
+        ctx.font = "30px monospace";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+
+        ctx.fillText(this.points, 200, 15);
+    }
+
+    gameOverScreen(ctx) {
+        this.drawPoints(ctx);
+        super.gameOverScreen(ctx);
     }
 
     static get NAME()
