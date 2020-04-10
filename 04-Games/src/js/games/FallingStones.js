@@ -67,7 +67,7 @@ export class FallingStones extends GameTemplate {
             {
                 this.bullets.splice(i, 1);
             }
-            for(let j = 0; j < this.stones.length; j++)
+            /*for(let j = 0; j < this.stones.length; j++)
             {
                 if(this.bullets[i].x === this.stones[j].x && this.bullets[i].y === this.stones[j].y)
                 {
@@ -76,7 +76,12 @@ export class FallingStones extends GameTemplate {
                     this.stones.splice(j, 1);
                     console.log(this.bullets[i].y+10);
                 }
-            }
+            }*/
+            bullets.forEach(paddle => {
+                if(GameObject.rectangleCollision(this.ball, paddle)) {
+                    this.handleHit(ctx, paddle);
+                }
+            });
         }
     }
 
