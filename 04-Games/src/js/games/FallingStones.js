@@ -67,21 +67,26 @@ export class FallingStones extends GameTemplate {
             {
                 this.bullets.splice(i, 1);
             }
-            /*for(let j = 0; j < this.stones.length; j++)
+            for(let j = 0; j < this.stones.length; j++)
             {
-                if(this.bullets[i].x === this.stones[j].x && this.bullets[i].y === this.stones[j].y)
+                /*if(this.bullets[i].x === this.stones[j].x && this.bullets[i].y === this.stones[j].y)
                 {
 
                     this.bullets.splice(i, 1);
                     this.stones.splice(j, 1);
                     console.log(this.bullets[i].y+10);
+                }*/
+                if(GameObject.rectangleCollision(this.bullets[i], this.stones[j])) {
+                    this.bullets.splice(i, 1);
+                    this.stones.splice(j, 1);
+                    console.log(this.bullets[i].y+10);
                 }
-            }*/
-            bullets.forEach(paddle => {
-                if(GameObject.rectangleCollision(this.ball, paddle)) {
+            }
+            /*this.stones.forEach(this.stones => {
+                if(GameObject.rectangleCollision(this.bullets[i], paddle)) {
                     this.handleHit(ctx, paddle);
                 }
-            });
+            });*/
         }
     }
 
@@ -95,7 +100,7 @@ export class FallingStones extends GameTemplate {
                 this.stones.splice(j, 1);
             }
         }
-        if(this.spawnIntervalStones > 90)
+        if(this.spawnIntervalStones > 60)
         {
             this.stones.push(new Ball((Math.random()*300)+25, 0, 50, 100, "#6bd26b", 0, 8));
             this.spawnIntervalStones = 0;
