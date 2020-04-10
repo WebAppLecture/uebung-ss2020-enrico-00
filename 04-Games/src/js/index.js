@@ -15,4 +15,4 @@ window.skinChanger = new SkinChanger(skinStyle, skins, "../03-CSS/src/css/");
 document.querySelector(".next").addEventListener("click", () => skinChanger.next());
 document.querySelector(".previous").addEventListener("click", () => skinChanger.previous());
 
-skinChanger.activeSkin = "basic";
+skinChanger.activeSkin = "peach";
