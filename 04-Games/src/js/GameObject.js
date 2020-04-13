@@ -101,6 +101,30 @@ export class Ball extends MovableGameObject {
 
 }
 
+
+export class Bullet extends MovableGameObject {
+
+    constructor(x, y, width, height, color, id, speed, eX, eY) {
+        super(x, y, width, height, color);
+        this.id = id;
+        this.speed = speed;
+        this.eX = eX;
+        this.eY = eY;
+        this.velocityX = 1;
+        this.velocityY = 1;
+    }
+
+    updateBullet(bullet, player) {
+    var dx = (bullet.eX - player.x);
+    var dy = (bullet.eY - player.y);
+    var mag = Math.sqrt(dx * dx + dy * dy);
+    bullet.velocityX = (dx / mag) * speed;
+    bullet.velocityY = (dy / mag) * speed;
+    bullet.x += bullet.velocityX;
+    bullet.y += bullet.velocityY;
+  }
+}
+
 export class Mode {
 
     constructor(name, parameters) {

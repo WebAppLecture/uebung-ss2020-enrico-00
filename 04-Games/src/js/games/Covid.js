@@ -1,5 +1,5 @@
 import { GameTemplate } from "./GameTemplate.js"
-import { GameObject, MovableGameObject, Ball, Mode } from "../GameObject.js";
+import { GameObject, MovableGameObject, Ball, Mode, Bullet } from "../GameObject.js";
 import { Pong, Paddle } from "../games/Pong.js";
 
 export class Covid extends GameTemplate {
@@ -8,7 +8,13 @@ export class Covid extends GameTemplate {
     {
         this.gameOver = false;
         //this.playerSpeed = 5;
-        //ctx.canvas.hight 
+        //ctx.canvas.height 
+        this.canvas = document.querySelector(".screen")
+        //this.canvas.onmousedown = shoot();
+        console.log(this.canvas);
+        this.canvas.addEventListener("mousedown",(e) => this.shoot(e));
+        this.width = this.canvas.width;
+        this.height = this.canvas.height;
         this.player = new Paddle(175, 250, 50, 50, 8); //border collision
         //this.player = new Ball(200, 450, 50, 50, "#6bd26b", 8, 0);
         //document.querySelector(".canvas")
@@ -18,12 +24,9 @@ export class Covid extends GameTemplate {
         this.lives = 5;
         this.spawnIntervalStones = 0;
         this.spawnIntervalBullets = 0;
+        this.bulletId = 0;
         //this.player.addEventListener("mousedown", event => this.shoot(event));
         //this.screen =  
-        this.canvas = document.querySelector(".screen")
-        //this.canvas.onmousedown = shoot();
-        console.log(this.canvas);
-        this.canvas.addEventListener("mousedown",() => this.shoot());
     }
 
     bindControls() 
@@ -59,12 +62,27 @@ export class Covid extends GameTemplate {
         this.drawPoints(ctx);
     }
 
-    shoot()
+    shoot(e)
     {
+        var ctx = this.canvas.getContext("2d");
+        ctx.moveTo(0, 0);
+        ctx.lineTo(200, 100);
+        ctx.stroke(); 
+        //console.log(ctx);
+        let rect = this.canvas.getBoundingClientRect();
+        let scaleX = this.canvas.width / rect.width;    // relationship bitmap vs. element for X
+        let scaleY = this.canvas.height / rect.height;
+        let dx = ((e.x-rect.left)*scaleX - this.player.x);
+        let dy = ((e.y-rect.top)*scaleY - this.player.y);
+        var mag = Math.sqrt(dx * dx + dy * dy);
         if(this.spawnIntervalBullets > 10)
         {
-            this.bullets.push(new Ball(this.player.x, this.player.y, 10, 10, "#6bd26b", 0, -8));
+            this.bullets.push(new Ball(this.player.x, this.player.y, 10, 10, "#6bd26b", (dx / mag) * 2, (dy / mag) * 2));
+            console.log(e.x-rect.left);
+            console.log(e.y-rect.top);
             this.spawnIntervalBullets = 0;
+            //this.bullets[this.bulletId] = new Bullet(this.player.x, this.player.y, 10, 10, "#6bd26b", 0, -8, this.bulletId, -8, e.x, e.y);
+            //this.bulletId += 1;
         }
     }
 
