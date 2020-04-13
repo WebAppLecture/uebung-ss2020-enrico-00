@@ -1,7 +1,7 @@
 export const Inputs = {
     "primary": {
-        "keys": [101],
-        "text": "E",
+        "keys": [32, 69],
+        "text": "A",
     },
     "secondary": {
         "keys": [113],

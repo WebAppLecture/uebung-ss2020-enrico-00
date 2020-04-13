@@ -4,6 +4,7 @@ import { TestGame } from "./games/TestGame.js";
 import { Inputs } from "./Inputs.js";
 import { Menu } from "./Menu.js";
 import { FallingStones } from "./games/FallingStones.js";
+import {Covid} from "./games/Covid.js";
 
 export class GameEngine {
 
@@ -135,7 +136,7 @@ export class GameEngine {
     }
 
     static get availableGames() {
-        return [Pong, Snake, TestGame, FallingStones];
+        return [Covid, Pong, Snake, TestGame, FallingStones];
     }
 
     static getGameByName(name) {
