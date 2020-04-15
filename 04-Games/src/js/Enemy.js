@@ -17,7 +17,7 @@ export class Enemy {
         this.anticlockwise = anticlockwise;
         this.speed = speed;
         this.lives = lives;
-        this.boolvar = true
+        //this.boolvar = true;
     }
 
     update(ctx) {
@@ -26,8 +26,8 @@ export class Enemy {
     }
 
     move() {
-        if(this.boolvar)
-        {
+        //if(this.boolvar)
+        //{
             /*console.log(this.target.x);
             console.log(this.x);
             console.log(this.target.y);
@@ -41,7 +41,23 @@ export class Enemy {
             this.vy = (dy / scale) * this.speed;
             this.x += this.vx;
             this.y += this.vy;
-        }
+        //}
+    }
+
+    moveBackwards() {
+        /*console.log(this.target.x);
+            console.log(this.x);
+            console.log(this.target.y);
+            console.log(this.y);*/
+            let dx = -(this.x - (this.target.x + 15)); // was - wohin = dx bzw. dy
+            let dy = -(this.y - (this.target.y + 15));
+            //console.log("dx", dx);
+            //console.log("dy", dy);
+            let scale = Math.sqrt(dx * dx + dy * dy);
+            this.vx = (dx / scale) * this.speed;
+            this.vy = (dy / scale) * this.speed;
+            this.x -= this.vx;
+            this.y -= this.vy;
     }
 
     draw(ctx) {
@@ -83,7 +99,47 @@ export class Enemy {
         return (circ1.radius + circ2.radius) > Math.sqrt(dx * dx + dy * dy);
     }
 
-    static criclerectngleCollision(rect1, circ2) {
+    static criclerectngleCollision(rect1, circ1) {
+        let cx = circ1.x;
+        let cy = circ1.y;
+        let rx = rect1.x;
+        let ry = rect1.y;
+        let rw = rect1.width;
+        let rh = rect1.height;
+        let testX = cx;
+        let testY = cy;
 
+        // which edge is closest?
+        if (cx < rx) 
+        {
+            testX = rx;
+        }   // test left edge
+        else if (cx > rx+rw) 
+        {
+            testX = rx+rw;   
+        }   // right edge
+        if (cy < ry)         
+        {
+            testY = ry;  
+        }   // top edge
+        else if (cy > ry+rh) 
+        {
+            testY = ry+rh;
+        }   // bottom edge
+
+        // get distance from closest edges
+        let distX = cx-testX;
+        let distY = cy-testY;
+        let distance = sqrt( (distX * distX) + (distY * distY) );
+
+        // if the distance is less than the radius, collision!
+        if (distance <= radius) 
+        {
+            return true;
+        }
+        else 
+        {
+            return false;
+        }
     }
 }

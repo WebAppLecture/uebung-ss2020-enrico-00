@@ -63,6 +63,7 @@ export class Covid extends GameTemplate {
         {
             this.gameOver = true;
         }
+        //console.log(this.findQuadrant(315,209)[0]);
     }
 
     draw(ctx) 
@@ -163,21 +164,23 @@ export class Covid extends GameTemplate {
 
     checkWalls() //besser Obstacles -> Kugelhitboxen
     {
+        let playerQuadr = this.findQuadrant(this.player.x + 0, this.player.y + 0, 40);
         for(let i = 0; i < this.walls.length; i++) // for each bessser weil sonst abfrage auf bereits gelöschte elemente
         {
             let dx = this.player.x - this.walls[i].x;
             let dy = this.player.y - this.walls[i].y;
-            let pitch = Math.sqrt(dx * dx + dy * dy);
+            let pitch = dy / dx;
             if(GameObject.rectangleCollision(this.player, this.walls[i])) {
+                let wallQuadr = this.findQuadrant(this.walls[i].x, this.walls[i].y, 40);
                 //console.log("Hallo");
                 let index =  i;
                 // Problem: Wenn collision dann wird erst das oberste überprüft alternativ: vx und vy >< 0
                 // Nicht alle Bedingung nötig
                 // < || <=
                 // to o : add pitch 
-                //console.log(this.player.x)
+                console.log(pitch)
                 //console.log(this.walls[index].x + 40)
-                if(this.player.x < this.walls[index].x  + 40 && this.player.x > this.walls[index].x && this.player.y < this.walls[index].y + 40 && this.player.y > this.walls[index].y - 30 )//&& this.player.vx < 0 && pitch >= -0.5 && pitch <= 0.5) //this.player.x < this.walls[index].x + 40 && this.player.x > this.walls[index].x)
+                if(playerQuadr[0] > wallQuadr[0])  //this.player.x < this.walls[index].x  + 40 && this.player.x > this.walls[index].x && this.player.y < this.walls[index].y + 40 && this.player.y > this.walls[index].y - 30 && this.player.vx < 0)// && pitch >= -0.5 && pitch <= 0.5) //this.player.x < this.walls[index].x + 40 && this.player.x > this.walls[index].x)
                 {
                     //right
                     let yRight = this.player.y;
@@ -206,6 +209,7 @@ export class Covid extends GameTemplate {
                     //console.log(this.walls[index].y)
                     this.player.y = this.walls[index].y - 30;
                 }
+                
             }
             for(let j = 0; j < this.bullets.length; j++)
             {
@@ -234,12 +238,17 @@ export class Covid extends GameTemplate {
                 let scale1 = Math.sqrt(this.enemies[i].vx * this.enemies[i].vx + this.enemies[i].vy * this.enemies[i].vy);
                 let scale2 = Math.sqrt(this.enemies[j].vx * this.enemies[j].vx + this.enemies[j].vy * this.enemies[j].vy);
                 let scale = Math.sqrt(dx * dx + dy * dy);
-                if(i != j && Enemy.criclecricleCollision(this.enemies[i], this.enemies[j])) {
+                while(i != j && Enemy.criclecricleCollision(this.enemies[i], this.enemies[j])) {
                     console.log("Treffer");
-                    this.enemies[i].x = this.enemies[j] + dx;
+                    //this.enemies[i].vx = -this.enemies[i].vx;
+                    /*this.enemies[i].vx = this.enemies[i].vx;
+                    this.enemies[i].vy = -this.enemies[i].vy;
+                    this.enemies[j].vx = this.enemies[j].vx;
+                    this.enemies[j].vy = -this.enemies[j].vy;*/
+                    /*this.enemies[i].x = this.enemies[j] + dx;
                     this.enemies[i].y = this.enemies[j] + dy;
                     this.enemies[j].x = this.enemies[i] + dx;
-                    this.enemies[j].y = this.enemies[i] + dy;   
+                    this.enemies[j].y = this.enemies[i] + dy;*/ 
                     //this.enemies[i].boolvar = false;
                     //this.enemies[j].boolvar = false;
                     /*this.enemies[i].vx = 0;
@@ -254,6 +263,12 @@ export class Covid extends GameTemplate {
                     y2 = this.enemies[j].y;*/
                 }
                 //console.log(Enemy.criclecricleCollision(this.enemies[i], this.enemies[j]));
+                for(let k = 0; k < this.walls.lenght; k++) {
+                    if(criclerectngleCollision(this.enemies[i], this.walls[k]))
+                    {
+                        console.log("Wand");
+                    }
+                }
             }
         }
     }
@@ -286,6 +301,12 @@ export class Covid extends GameTemplate {
     gameOverScreen(ctx) {
         this.drawPoints(ctx);
         super.gameOverScreen(ctx);
+    }
+
+    findQuadrant(x, y, quadrantScale) {
+        let xQuadr = Math.ceil(x / quadrantScale); // oder +1 da bei 0 anfängt
+        let yQuadr = Math.ceil(y / quadrantScale);
+        return [xQuadr, yQuadr];
     }
 
     static get NAME()
